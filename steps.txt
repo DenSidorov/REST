@@ -1,0 +1,53 @@
+$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (rest) 
+version: (1.0.0) 
+description: rest api fulstack example
+entry point: (app.js) 
+test command: 
+git repository: 
+keywords: js, rest api
+author: DenSid
+license: (ISC) 
+About to write to /home/den/Git/REST/package.json:
+
+{
+  "name": "rest",
+  "version": "1.0.0",
+  "description": "rest api fulstack example",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "js",
+    "rest",
+    "api"
+  ],
+  "author": "DenSid",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes) 
+$ npm i express
+
+$ npm i -D nodemon
+
+$ npm run start
+
+> rest@1.0.0 start
+> node app.js
+
+Server has been started on port:3000...
+^C
+$ npm run dev
