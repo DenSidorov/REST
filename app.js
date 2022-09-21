@@ -4,25 +4,42 @@ const path = require('path');
 const {v4} = require('uuid') // id generator
 
 // БД
-const CONTACTS = [
-    {id: v4(), name: 'Den', value: '8-929-977-92-95', marked: false}
+let AFFAIRS = [
+    {id: v4(), name: 'Wake', value: 'Wake at 08:00', marked: false}
 ]
 
+/// Добавим Middlewere который будет работать с респонсом
 app.use(express.json())
 
 /// GET
-app.get('/api/contacts', (req, res) => {
-    setTimeout(() => { /// Делаем задержку, чтобы увидеть колесо
-        res.status(200).json(CONTACTS)
-    }, 1000)
+app.get('/api/affairs', (req, res) => {
+    // setTimeout(() => { /// Делаем задержку, чтобы увидеть колесо
+        res.status(200).json(AFFAIRS)
+    // }, 1000)
     
 })
 
 /// POST
-app.post('/api/contacts', (req, res) =>{
-    console.log(req.body);
-    res.json({test: 1})
+app.post('/api/affairs', (req, res) =>{
+    // console.log(req.body)
+    const affair = {...req.body, id: v4(), marked: false}
+    AFFAIRS.push(affair)
+    res.status(201).json(affair)
 })
+
+///DELETE
+app.delete('/api/affairs/:id', (req, res) => {
+    AFFAIRS = AFFAIRS.filter(c => c.id !== req.params.id)
+    res.status(200).json(AFFAIRS)
+})
+
+///PUT
+app.put('/api/affairs/:id', (req, res) => {
+    const index = AFFAIRS.findIndex(c => c.id === req.params.id)
+    AFFAIRS[index] = req.body
+    res.json(AFFAIRS[index])
+})
+
 
 /// Следующие запросы должны быть последними:
 // Создаём статическую папку, чтобы index нашёл frontend.js

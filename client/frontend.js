@@ -21,7 +21,7 @@ new Vue({
                 name: '',
                 value: ''
             },
-            contacts: []
+            affairs: []
         }        
     },
     computed: {
@@ -30,47 +30,50 @@ new Vue({
         }
     },
     methods: {
-        async createContact() {
-            const {...contact} = this.form;
-            const response = await request('/api/contacts', 'POST', contact);
-            console.log(response);
-            // this.contacts.push({...contact, id: Date.now(), marked: false});
+        async createAffairs() {
+            const {...affairs} = this.form;
+            const newAffairs = await request('/api/affairs', 'POST', affairs);
+            this.affairs.push(newAffairs);
 
-            // this.form.name = this.form.value = '';
+            this.form.name = this.form.value = '';
         },
-        markContact(id) {
-            // console.log(id);
-            const contact = this.contacts.find(cont => cont.id === id)
-            contact.marked = true
-            
+        async markAffairs(id) {
+            const affairs = this.affairs.find(af => af.id === id)
+            const updated = await request(`api/affairs/${id}`, 'PUT', {
+                ...affairs,
+                marked: true
+            })
+            affairs.marked = updated.marked
         },
-        removeContact(id) {
-            this.contacts = this.contacts.filter(con => con.id !== id)
+        async removeAffairs(id) {
+            await request(`api/affairs/${id}`, 'DELETE')
+            this.affairs = this.affairs.filter(af => af.id !== id)
         }
     },
     async mounted() {
         this.loading = true
-        this.contacts = await request('/api/contacts')
+        this.affairs = await request('/api/affairs')
         this.loading = false
     }
 })
 
 async function request(url, method = 'GET', data = null) {
     try {
-        const headers = {}
-        let body
-
-        if (data) {
-            headers['Content-Type'] = 'application/json'
-            body = JSON.stringify(data)
-        }
-        const response = await fetch(url, {
-            method,
-            headers,
-            body
-        })
-        return await response.json()
+      const headers = {}
+      let body
+  
+      if (data) {
+        headers['Content-Type'] = 'application/json'
+        body = JSON.stringify(data)
+      }
+  
+      const response = await fetch(url, {
+        method,
+        headers,
+        body
+      })
+      return await response.json()
     } catch (e) {
-        console.warn('Error:', e.message)
+      console.warn('Error:', e.message)
     }
-}
+  }

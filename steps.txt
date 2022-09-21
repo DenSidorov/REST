@@ -1,50 +1,30 @@
+md client
+mf index.html
+  <script type="module" src="frontend.js"></script>
+  подключаем Vue как модуль
+mf frontend.js
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.esm.browser.js'
+
 $ npm init
 
-
-Press ^C at any time to quit.
-package name: (rest) 
-version: (1.0.0) 
-description: rest api fulstack example
-entry point: (app.js) 
-test command: 
-git repository: 
-keywords: js, rest api
-author: DenSid
-license: (ISC) 
-About to write to /home/den/Git/REST/package.json:
-
-{
-  "name": "rest",
-  "version": "1.0.0",
-  "description": "rest api fulstack example",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "keywords": [
-    "js",
-    "rest",
-    "api"
-  ],
-  "author": "DenSid",
-  "license": "ISC"
-}
-
-
-Is this OK? (yes) 
 $ npm i express
 
 $ npm i -D nodemon
+  облегчает процесс разработки (перезагружает сервер)
+
+$ npm i uuid - генерация ID
+
+package.json
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+
+mf app.js
 
 $ npm run start
-
-> rest@1.0.0 start
-> node app.js
 
 Server has been started on port:3000...
 ^C
 $ npm run dev
 ****************************************
-index.html
-<script type="module" src="frontend.js"></script>
